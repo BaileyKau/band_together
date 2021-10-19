@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous'>
+</head>
+<body>
+    <h1>Rock On{{ user.full_name }}!!!</h1>
+    <a href="/my_band" class="btn btn-primary">My Bands</a>
+    <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+    <a href="/logout" class="btn btn-primary">Logout</a>
+    <h2>Edit This Sighting</h2>
+    {% for message in get_flashed_messages(category_filter=['band']) %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    <form action="/edit_band/{{band.id}}" method='POST'>
+        <label for="name">Band Name:</label>
+        <input type="text" name="name" value='{{band.name}}'>
+        <label for="genre">Music Genre:</label>
+        <input type="text" name="genre" value='{{band.genre}}'>
+        <label for="location">Home City:</label>
+        <input type="text" name="location" value='{{band.location}}'>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

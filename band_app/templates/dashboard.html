@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous'>
+</head>
+<body>
+    <h1>Rock On {{ user.full_name }}!!!</h1>
+    <a href="/my_band" class="btn btn-primary">My Bands</a>
+    <a href="/band/new" class="btn btn-primary">New Band</a>
+    <a href="/logout" class="btn btn-primary">Logout</a>
+    <h2>All Bands</h2>
+    {% for band in band_list %}
+    <p>Band Name: {{ band.name }}</p>
+    <p>Founding Member: {{ band.created_by.full_name }}</p>
+    <p>Genre: {{ band.genre }}</p>
+    {% if band.user_id == user.id %}
+    <a href="/band/edit/{{band.id}}" class="btn btn-primary">Edit</a>
+    <a href="/delete_band/{{band.id}}" class="btn btn-primary">Delete</a>
+    {% endif %}
+    {% if joined_bands %}
+        {% for join in joined_bands %}
+            {% if join.id == band.id %}
+            <a href="/quit_band/{{user.id}}/{{band.id}}">Quit</a>
+            {% else %}
+            <a href="/join_band/{{user.id}}/{{band.id}}">Join</a>
+            {% endif %}
+        {% endfor %}
+    {% elif band.user_id != user.id %}
+    <a href="/join_band/{{user.id}}/{{band.id}}">Join</a>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

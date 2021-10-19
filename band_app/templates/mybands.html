@@ -1,0 +1,29 @@
+<!-- User, All Bands, Joined Bands -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous'>
+</head>
+<body>
+    <h1>Rock On {{ user.full_name }}!!!</h1>
+    <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+    <a href="/logout" class="btn btn-primary">Logout</a>
+    <h2>My Bands:</h2>
+    {% for band in band_list %}
+    {% if band.user_id == user.id %}
+    <p>{{ band.name }}</p>
+    <a href="/band/edit/{{band.id}}" class="btn btn-primary">Edit</a>
+    <a href="/delete_band/{{band.id}}" class="btn btn-primary">Delete</a>
+    {% endif %}
+    {% endfor %}
+    <h2>Joined Bands:</h2>
+    {% for band in joined_bands %}
+    <p>{{ band.name }}</p>
+    <a href="/quit_band/{{user.id}}/{{band.id}}" class="btn btn-primary">Quit</a>
+    {% endfor %}
+</body>
+</html>
